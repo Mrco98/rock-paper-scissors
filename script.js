@@ -29,11 +29,26 @@ function playRound(humanChoice, computerChoice) {
         console.log(`You both chose ${choice}! It's a tie`)
     } else {
         console.log(`You lose! ${choice} loses to ${computerChoice}`)
-        ++computerChoice;
+        ++computerScore;
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+function playGame() {
+    
+    for (let i=0; i<5; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
+        console.log(`Player score: ${humanScore} Computer Score: ${computerScore}`)
+    }
+
+    if (humanScore > computerScore) {
+        return "Congratulations! You won against the computer";
+    } else if (computerScore > humanScore) {
+        return "Try again! You lost against the computer";
+    } else {
+        return "Try again! You tied against the computer";
+    }
+
+}
+
+console.log(playGame());
