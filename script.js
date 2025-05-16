@@ -1,6 +1,19 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const body = document.querySelector('body');
+const buttonRock = document.createElement('button');
+const buttonPaper = document.createElement('button');
+const buttonScissor = document.createElement('button');
+
+buttonRock.textContent = 'Rock';
+buttonPaper.textContent = 'Paper';
+buttonScissor.textContent = 'Scissor';
+
+body.appendChild(buttonRock);
+body.appendChild(buttonPaper);
+body.appendChild(buttonScissor);
+
 function getComputerChoice() {
     let decision = Math.floor(Math.random() * 3 + 1);
     switch (decision) {
@@ -36,10 +49,10 @@ function playRound(humanChoice, computerChoice) {
 
 function playGame() {
     
-    for (let i=0; i<5; i++) {
+    /* for (let i=0; i<5; i++) {
         playRound(getHumanChoice(), getComputerChoice());
         console.log(`Player score: ${humanScore} Computer Score: ${computerScore}`)
-    }
+    } */
 
     if (humanScore > computerScore) {
         return "Congratulations! You won against the computer";
