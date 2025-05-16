@@ -24,10 +24,22 @@ body.appendChild(buttonPaper);
 body.appendChild(buttonScissor);
 body.appendChild(result);
 
-buttonRock.addEventListener('click', () => {playRound('rock', getComputerChoice())});
-buttonPaper.addEventListener('click', () => {playRound('paper', getComputerChoice())});
-buttonScissor.addEventListener('click', () => {playRound('scissor', getComputerChoice())});
+buttonRock.addEventListener('click', rockClicked);
+buttonPaper.addEventListener('click', paperClicked);
+buttonScissor.addEventListener('click', scissorClicked);
 buttonReset.addEventListener('click', resetGame);
+
+function rockClicked() {
+    playRound('rock', getComputerChoice());
+}
+
+function paperClicked() {
+    playRound('paper', getComputerChoice());
+}
+
+function scissorClicked() {
+    playRound('scissor', getComputerChoice());
+}
 
 function getComputerChoice() {
     let decision = Math.floor(Math.random() * 3 + 1);
@@ -42,27 +54,31 @@ function getComputerChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    choice = humanChoice.toLowerCase();
-    if (choice === "rock" && computerChoice === "scissor" || 
-        choice === "paper" && computerChoice === "rock" || 
-        choice === "scissor" && computerChoice === "paper") {
+    if (humanChoice === "rock" && computerChoice === "scissor" || 
+        humanChoice === "paper" && computerChoice === "rock" || 
+        humanChoice === "scissor" && computerChoice === "paper") {
         ++humanScore;
-        result.textContent = `You win! ${choice} beats ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
-    } else if (choice === computerChoice) {
-        result.textContent =`You both chose ${choice}! It's a tie. \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
+        result.textContent = `You win! ${humanChoice} beats ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
+    } else if (humanChoice === computerChoice) {
+        result.textContent =`You both chose ${humanChoice}! It's a tie. \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
     } else {
         ++computerScore;
-        result.textContent = `You lose! ${choice} loses to ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
+        result.textContent = `You lose! ${humanChoice} loses to ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
     }
 
     if (humanScore === 5 ) {
         result.textContent = `CONGRATULATIONS! You won. \nPlayer: ${humanScore} Computer: ${computerScore}`;
         body.appendChild(buttonReset);
+        buttonRock.removeEventListener('click', rockClicked);
+        buttonPaper.removeEventListener('click', paperClicked);
+        buttonScissor.removeEventListener('click', scissorClicked);
 
     } else if (computerScore ===5) {
         result.textContent = `GAME OVER! You lost. \nPlayer: ${humanScore} Computer: ${computerScore}`;
         body.appendChild(buttonReset);
-        
+        buttonRock.removeEventListener('click', rockClicked);
+        buttonPaper.removeEventListener('click', paperClicked);
+        buttonScissor.removeEventListener('click', scissorClicked);
     }
 }
 
@@ -71,4 +87,7 @@ function resetGame() {
     humanScore = 0;
     computerScore = 0;
     buttonReset.parentNode.removeChild(buttonReset);
+    buttonRock.addEventListener('click', rockClicked);
+    buttonPaper.addEventListener('click', paperClicked);
+    buttonScissor.addEventListener('click', scissorClicked);
 }
