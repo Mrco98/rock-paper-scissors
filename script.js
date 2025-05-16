@@ -13,7 +13,11 @@ const buttonScissor = document.createElement('button');
 buttonScissor.textContent = 'Scissor';
 
 const result = document.createElement('div');
-result.textContent = 'Hello.';
+result.textContent = "Hello. Let's Play!";
+result.style.whiteSpace = 'pre-line';
+
+const buttonReset = document.createElement('button');
+buttonReset.textContent = 'PLAY AGAIN';
 
 body.appendChild(buttonRock);
 body.appendChild(buttonPaper);
@@ -23,6 +27,7 @@ body.appendChild(result);
 buttonRock.addEventListener('click', () => {playRound('rock', getComputerChoice())});
 buttonPaper.addEventListener('click', () => {playRound('paper', getComputerChoice())});
 buttonScissor.addEventListener('click', () => {playRound('scissor', getComputerChoice())});
+buttonReset.addEventListener('click', resetGame);
 
 function getComputerChoice() {
     let decision = Math.floor(Math.random() * 3 + 1);
@@ -42,28 +47,28 @@ function playRound(humanChoice, computerChoice) {
         choice === "paper" && computerChoice === "rock" || 
         choice === "scissor" && computerChoice === "paper") {
         ++humanScore;
-        result.textContent = `You win! ${choice} beats ${computerChoice} Total -> Player: ${humanScore} Computer: ${computerScore}`;
+        result.textContent = `You win! ${choice} beats ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
     } else if (choice === computerChoice) {
-        result.textContent =`You both chose ${choice}! It's a tie. Total -> Player: ${humanScore} Computer: ${computerScore}`;
+        result.textContent =`You both chose ${choice}! It's a tie. \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
     } else {
         ++computerScore;
-        result.textContent = `You lose! ${choice} loses to ${computerChoice} Total -> Player: ${humanScore} Computer: ${computerScore}`;
+        result.textContent = `You lose! ${choice} loses to ${computerChoice} \nTotal -> Player: ${humanScore} Computer: ${computerScore}`;
+    }
+
+    if (humanScore === 5 ) {
+        result.textContent = `CONGRATULATIONS! You won. \nPlayer: ${humanScore} Computer: ${computerScore}`;
+        body.appendChild(buttonReset);
+
+    } else if (computerScore ===5) {
+        result.textContent = `GAME OVER! You lost. \nPlayer: ${humanScore} Computer: ${computerScore}`;
+        body.appendChild(buttonReset);
+        
     }
 }
 
-
-/* function playGame(humanChoice, computerChoice) {
-    
-    playRound(getHumanChoice(), getComputerChoice());
-    console.log(`Player score: ${humanScore} Computer Score: ${computerScore}`);
-
-    if (humanScore > computerScore) {
-        return "Congratulations! You won against the computer";
-    } else if (computerScore > humanScore) {
-        return "Try again! You lost against the computer";
-    } else {
-        return "Try again! You tied against the computer";
-    }
-
-} */
-
+function resetGame() {
+    result.textContent = "Hello. Let's Play!";
+    humanScore = 0;
+    computerScore = 0;
+    buttonReset.parentNode.removeChild(buttonReset);
+}
