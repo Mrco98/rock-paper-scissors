@@ -20,9 +20,9 @@ body.appendChild(buttonPaper);
 body.appendChild(buttonScissor);
 body.appendChild(result);
 
-buttonRock.addEventListener('click', playRound('rock', getComputerChoice()));
-buttonPaper.addEventListener('click', playRound('paper', getComputerChoice()));
-buttonScissor.addEventListener('click', playRound('scissor', getComputerChoice()));
+buttonRock.addEventListener('click', () => {playRound('rock', getComputerChoice())});
+buttonPaper.addEventListener('click', () => {playRound('paper', getComputerChoice())});
+buttonScissor.addEventListener('click', () => {playRound('scissor', getComputerChoice())});
 
 function getComputerChoice() {
     let decision = Math.floor(Math.random() * 3 + 1);
